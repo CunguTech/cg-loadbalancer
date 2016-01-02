@@ -2,6 +2,9 @@ package me.cungu.util;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 public class Pair<K, V> implements Serializable {
 
 	private K first;
@@ -31,14 +34,11 @@ public class Pair<K, V> implements Serializable {
 			return false;
 		}
 		Pair other = (Pair) obj;
-		return HashCode.equalObjects(first, other.first) && HashCode.equalObjects(second, other.second);
+		return new EqualsBuilder().append(first, other.first).append(second, other.second).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		HashCode h = new HashCode();
-		h.addValue(first);
-		h.addValue(second);
-		return h.hashCode();
+		return new HashCodeBuilder().append(first).append(second).hashCode();
 	}
 }
